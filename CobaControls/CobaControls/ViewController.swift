@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var mySwitch: UISwitch!
+    var mySegment: UISegmentedControl!
+    var myItems = [ "Google", "Apple", "Facebook"]
+    
     @IBOutlet weak var slide1: UISlider!
 
     @IBOutlet weak var namaSegment: UILabel!
@@ -45,8 +49,27 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 //        totalBayar.text = hitung(Double(slide1.value)).description
         totalBayar.text = String.localizedStringWithFormat("%.2f",hitung(Double(slide1.value)))
-    }
+        
+        mySwitch = UISwitch(frame: CGRect(x: view.frame.width/2-24, y: view.frame.height/2, width: 0, height:0))    // atau view.center.x, view.center.y
+        view.addSubview(mySwitch)
+        mySwitch.setOn(true, animated: true)
+        mySwitch.tintColor = UIColor.blackColor()
+        mySwitch.onTintColor = UIColor.redColor()
+        
+        mySegment = UISegmentedControl(items: myItems)
+        mySegment.center = CGPointMake(view.center.x, view.center.y + 133)
+        view.addSubview(mySegment)
+        mySegment.addTarget(self, action: "mySegmentBerubah:", forControlEvents: .ValueChanged)
 
+    }
+    
+    func mySegmentBerubah(sender: UISegmentedControl) {
+        let pilihanIndex = sender.selectedSegmentIndex
+        print(pilihanIndex)
+        if let indexTerpilih = sender.titleForSegmentAtIndex(pilihanIndex) {
+            print(indexTerpilih)
+        }
+    }
 
 }
 
