@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         myActionController.addAction(cancelAction)
         
         
-        sliderKu = UISlider(frame: CGRectMake(view.frame.width/2-120, view.frame.height/2-40, 240, 80))
+        sliderKu = UISlider(frame: CGRectMake(view.frame.width/2-60, view.frame.height/2-40, 120, 80))
 //        sliderKu.center = view.center
         sliderKu.minimumValue = 0
         sliderKu.maximumValue = 100
@@ -79,7 +79,8 @@ class ViewController: UIViewController {
         mySwitch.onTintColor = UIColor.redColor()
         
         mySegment = UISegmentedControl(items: myItems)
-        mySegment.center = CGPointMake(view.center.x, view.center.y + 200)
+        mySegment.center = CGPointMake(view.center.x, view.center.y + 50)
+        
         view.addSubview(mySegment)
         
         mySegment.addTarget(self, action: "mySegmentBerubah:", forControlEvents: .ValueChanged)
@@ -132,6 +133,23 @@ class ViewController: UIViewController {
         if let indexTerpilih = sender.titleForSegmentAtIndex(pilihanIndex) {
             print(indexTerpilih)	// mencetak title segment terpilih
         }
+    }
+    
+    
+    // untuk redraw item setelah orientasi layar berubah
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        getScreenSize()
+    }
+    var screenWidth:CGFloat=0
+    var screenHeight:CGFloat=0
+    func getScreenSize(){
+        screenWidth=UIScreen.mainScreen().bounds.width
+        screenHeight=UIScreen.mainScreen().bounds.height
+        print("SCREEN RESOLUTION: "+screenWidth.description+" x "+screenHeight.description)
+        // dua item dibawah ini di-redraw setelah rotasi
+        self.mySegment.center = CGPointMake(screenWidth/2, screenHeight/2 + 50)
+        self.sliderKu.center = CGPointMake(screenWidth/2, screenHeight/2)
+
     }
 
 }
