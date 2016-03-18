@@ -10,15 +10,32 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    @IBOutlet weak var sliderText: UILabel!
+    @IBOutlet weak var switchText: UILabel!
+    @IBOutlet weak var segmentText: UILabel!
+    
+    @IBAction func sliderAction(sender: UISlider) {
+        sliderText.text = Int(sender.value).description
+    }
+    
+    @IBAction func switchAction(sender: UISwitch) {
+        if sender.on {
+            switchText.text = "ON"
+        } else {
+            switchText.text = "OFF"
+        }
+    }
+    
+    @IBAction func segmentAction(sender: UISegmentedControl) {
+        segmentText.text = sender.titleForSegmentAtIndex(sender.selectedSegmentIndex)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
 
 }
