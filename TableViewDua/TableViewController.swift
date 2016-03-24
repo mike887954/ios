@@ -10,6 +10,8 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
+    var myModel = MyModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,32 +22,53 @@ class TableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        if section == 0 {
+            return myModel.people.count
+        } else {
+            return myModel.videos.count
+        }
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "People"
+        } else {
+            return "Videos"
+        }
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("My Cell", forIndexPath: indexPath)
 
-        // Configure the cell...
+        if indexPath.section == 0 {	// section untuk people
+            let (personName, personLocation) = myModel.people[indexPath.row]
+            
+            //            cell.accessoryType = .DisclosureIndicator
+            
+            // untuk hapus tanda pada cell:
+            //            cell.accessoryType = UITableViewCellAccessoryType.None
+            
+            cell.textLabel?.text = personName
+            cell.detailTextLabel?.text = personLocation
+            
+        } else {
+            let (videoTitle, videoDesc) = myModel.videos[indexPath.row]
+            //            cell.accessoryType = .DisclosureIndicator
+            cell.textLabel?.text = videoTitle
+            cell.detailTextLabel?.text = videoDesc
+        }
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
